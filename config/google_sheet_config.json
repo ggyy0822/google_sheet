@@ -1,0 +1,15 @@
+{
+    "scopes": ["https://www.googleapis.com/auth/spreadsheets"],
+    "spreadsheet_id": "17IavdRz8cPEBtvjOIW_dJ3r8zfg54itNn40Nq_qnb54",
+    "gid": "1786777669",
+    "sheet_name": "上架_PM",
+    "config_dir": "config",
+    "token_filename": "config/google_sheet_token.json",
+    "client_secret_filename": "config/client_secret*.json",
+    "dic_filename": "config/google_sheet_dic.json",
+    "header_range": "A2:2",
+    "data_start_row": 4,
+    "verbose": true,
+    "":"",
+    "":""
+}

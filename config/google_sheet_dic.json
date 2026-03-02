@@ -1,0 +1,157 @@
+{
+  "generated_at": "2026-02-25T16:07:30",
+  "sheet_name": "上架_PM",
+  "header_range": "A2:2",
+  "data_start_row": 4,
+  "schema_hash": "c3d00226e92335bf17ff96c0545d4b9f",
+  "dic": {
+    "platform": {
+      "col_letter": "A",
+      "col_idx": 1
+    },
+    "erp_product_name": {
+      "col_letter": "B",
+      "col_idx": 2
+    },
+    "sale_product_name": {
+      "col_letter": "C",
+      "col_idx": 3
+    },
+    "slogan": {
+      "col_letter": "D",
+      "col_idx": 4
+    },
+    "feature": {
+      "col_letter": "E",
+      "col_idx": 5
+    },
+    "product_description": {
+      "col_letter": "F",
+      "col_idx": 6
+    },
+    "erp_sku": {
+      "col_letter": "G",
+      "col_idx": 7
+    },
+    "barcode": {
+      "col_letter": "H",
+      "col_idx": 8
+    },
+    "model_no": {
+      "col_letter": "I",
+      "col_idx": 9
+    },
+    "brand": {
+      "col_letter": "J",
+      "col_idx": 10
+    },
+    "spec_name_1": {
+      "col_letter": "K",
+      "col_idx": 11
+    },
+    "spec_value_1": {
+      "col_letter": "L",
+      "col_idx": 12
+    },
+    "spec_name_2": {
+      "col_letter": "M",
+      "col_idx": 13
+    },
+    "spec_value_2": {
+      "col_letter": "N",
+      "col_idx": 14
+    },
+    "length_cm": {
+      "col_letter": "O",
+      "col_idx": 15
+    },
+    "width_cm": {
+      "col_letter": "P",
+      "col_idx": 16
+    },
+    "height_cm": {
+      "col_letter": "Q",
+      "col_idx": 17
+    },
+    "weight_kg": {
+      "col_letter": "R",
+      "col_idx": 18
+    },
+    "tax_type": {
+      "col_letter": "S",
+      "col_idx": 19
+    },
+    "list_price": {
+      "col_letter": "T",
+      "col_idx": 20
+    },
+    "sale_price": {
+      "col_letter": "U",
+      "col_idx": 21
+    },
+    "cost_price": {
+      "col_letter": "V",
+      "col_idx": 22
+    },
+    "stock_qty": {
+      "col_letter": "W",
+      "col_idx": 23
+    },
+    "carton_qty": {
+      "col_letter": "X",
+      "col_idx": 24
+    },
+    "is_preorder": {
+      "col_letter": "Y",
+      "col_idx": 25
+    },
+    "expected_ship_date": {
+      "col_letter": "Z",
+      "col_idx": 26
+    },
+    "ship_days_after_order": {
+      "col_letter": "AA",
+      "col_idx": 27
+    },
+    "is_scheduled_delivery": {
+      "col_letter": "AB",
+      "col_idx": 28
+    },
+    "is_recyclable": {
+      "col_letter": "AC",
+      "col_idx": 29
+    },
+    "is_large_appliance": {
+      "col_letter": "AD",
+      "col_idx": 30
+    },
+    "delivery_type": {
+      "col_letter": "AE",
+      "col_idx": 31
+    },
+    "temperature_type": {
+      "col_letter": "AF",
+      "col_idx": 32
+    },
+    "product_attribute": {
+      "col_letter": "AG",
+      "col_idx": 33
+    },
+    "origin_country": {
+      "col_letter": "AH",
+      "col_idx": 34
+    },
+    "shelf_life_days": {
+      "col_letter": "AI",
+      "col_idx": 35
+    },
+    "youtube_url": {
+      "col_letter": "AJ",
+      "col_idx": 36
+    },
+    "warranty_days": {
+      "col_letter": "AK",
+      "col_idx": 37
+    }
+  }
+}

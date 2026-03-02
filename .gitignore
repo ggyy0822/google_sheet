@@ -1,0 +1,15 @@
+# Python
+__pycache__/
+*.pyc
+
+# Virtual env
+.venv/
+
+# Mac
+.DS_Store
+
+# Google API secrets
+google_sheet_token.json
+token.json
+credentials.json
+config/client_secret.json
