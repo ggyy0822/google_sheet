@@ -1,9 +1,11 @@
 import openpyxl
 import pandas as pd
 import unicodedata
+import os
 from google_sheet import GoogleSheetManager  # 你的主程式檔名如果不是 google_sheet.py 就改掉
+from datetime import datetime
 
-TEMPLATE_XLSX = "提品匯入範例.xlsx"
+TEMPLATE_XLSX = "templates/提品匯入範例.xlsx"
 TARGET_SHEET = "上傳模板-非食品"
 LAST_COL_LETTER = "AI"  # 你 Google Sheet 最後一欄（依你的 dic 是 AI）
 
@@ -224,6 +226,13 @@ def ask_last_row(min_row: int) -> int:
 if __name__ == "__main__":
     gs = GoogleSheetManager(sheet_config_file="config/google_sheet_config.json")
 
+    # ✅ 建立 output 資料夾（如果不存在）
+    output_dir = "output"
+    os.makedirs(output_dir, exist_ok=True)
+
+    # ✅ 可選：自動加日期時間（避免覆蓋舊檔）
+    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+
     last_row = ask_last_row(min_row=gs.data_start_row)
 
     end_cell = f"{LAST_COL_LETTER}{last_row}"
@@ -232,14 +241,21 @@ if __name__ == "__main__":
     df = gs.load_gs_data(end_cell=end_cell)
     print("抓到筆數：", len(df))
 
-    output = "提品匯入_非食品_保留分頁.xlsx"
+    # ✅ 存到 output 資料夾
+    output_path = os.path.join(
+        output_dir,
+        f"提品匯入_非食品_{timestamp}.xlsx"
+    )
+
     export_keep_sheets_xlsx(
         df=df,
         template_xlsx=TEMPLATE_XLSX,
-        output_xlsx=output,
+        output_xlsx=output_path,
         target_sheet=TARGET_SHEET,
         mapping=MAPPING,
         header_row=1,
         data_start_row=4,
         clear_down_to=4 + len(df) + 50,
     )
+
+    print("檔案已輸出到：", output_path)

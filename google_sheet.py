@@ -239,7 +239,8 @@ class GoogleSheetManager:
         sheet_df = pd.DataFrame(fixed_rows, columns=headers)
         # sheet_df = pd.DataFrame(value_ranges[0].get("values", []), columns=self.GOOGLE_SHEET_DIC.keys())
         # sheet_df["index"] = sheet_df.index
-        sheet_df.to_excel("test.xlsx", index=False)
+        os.makedirs("data", exist_ok=True)
+        sheet_df.to_excel("data/key對照表.xlsx", index=False)
         print("實際抓取範圍：", f"{self.sheet_name}!A{self.data_start_row}:{end_cell}")
         return sheet_df
         # for vr in value_ranges:

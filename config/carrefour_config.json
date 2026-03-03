@@ -1,0 +1,11 @@
+{
+  "login_url": "https://scm.carrefour.com.tw/login",
+  "home_url": "https://scm.carrefour.com.tw/",
+  "vendor_code": "53563181",
+  "account": "suntrailrobot@gmail.com",
+  "password": "St77098780",
+  "upload": {
+    "output_dir": "output",
+    "filename_prefix": "提品匯入_非食品_"
+  }
+}
