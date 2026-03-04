@@ -88,10 +88,12 @@ class CarrefourBot:
     # ---- 點擊回到首頁 ----
     def go_home(self):
         click_element(self.driver, *SEL_HOME_LINK)
+
+        # ✅ 不用等 URL 變化，改等「後台主畫面一定存在的元素」
         wait_until(
             self.driver,
-            condition=lambda d: (d.current_url or "").rstrip("/").endswith("scm.carrefour.com.tw")
-                                or (d.current_url or "").endswith("/"),
+            *SEL_MENU_PRODUCT,
+            EC.presence_of_element_located,
             seconds=20,
             max_attempts=2,
         )
@@ -288,3 +290,4 @@ class CarrefourBot:
 
             # 直接沿用你原本已驗證成功的單批流程
             self.upload_images_batch(image_type_text, batch)
+            time.sleep(2)
