@@ -54,3 +54,24 @@ SEL_BTN_UPLOAD = (By.XPATH, "//button[normalize-space()='上傳' or .//span[norm
 
 # 「確認」按鈕（type=submit）
 SEL_BTN_CONFIRM = (By.XPATH, "//button[@type='submit' and (normalize-space()='確認' or .//span[normalize-space()='確認'])]")
+
+# 查詢按鈕
+SEL_BTN_QUERY = (By.XPATH,"//button[.//span[normalize-space()='查詢'] or normalize-space()='查詢']")
+
+def sel_btn_img_maintenance_draft_only(ean: str):
+    """
+    定位條件：
+    1. 該 tr 包含指定條碼 (ean)
+    2. 該 tr 的儲存格包含 '暫存'
+    3. 找到內部的商品維護超連結 (a 標籤)
+    """
+    return (
+        By.XPATH, 
+        f"//tr[contains(., '{ean}') and .//td[contains(., '暫存')]]//a[contains(., '商品相關圖檔維護')]"
+    )
+
+# 1. 搜尋輸入框：使用最穩定的 ID 定位 (取代 placeholder)
+SEL_MODAL_SEARCH_INPUT = (By.ID, "fileName")
+
+# 綁定按鈕
+SEL_MODAL_BIND_BTN_TEMPLATE = (By.XPATH, "//tr[contains(., '{}')]//button[contains(@class, 'sc-9a1a20db-0')]")

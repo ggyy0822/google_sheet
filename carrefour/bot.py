@@ -1,6 +1,7 @@
 # carrefour/bot.py
 import os
 import time
+import re
 from pathlib import Path
 from typing import Optional
 
@@ -27,6 +28,11 @@ from .selectors import (
     SEL_INPUT_FILE_ID,
     SEL_BTN_UPLOAD,
     SEL_BTN_CONFIRM,
+    SEL_BTN_QUERY,
+    sel_btn_img_maintenance_draft_only,
+    SEL_MODAL_SEARCH_INPUT,
+    SEL_MODAL_BIND_BTN_TEMPLATE,
+
 )
 
 
@@ -291,3 +297,96 @@ class CarrefourBot:
             # 直接沿用你原本已驗證成功的單批流程
             self.upload_images_batch(image_type_text, batch)
             time.sleep(2)
+
+    def goto_image_maintenance_if_draft(self, ean: str) -> bool:
+        """
+        進入提品申請頁面，查詢條碼，並進入暫存商品的圖檔維護
+        """
+        self.goto_product_application()
+
+        # 1. 點擊查詢並給予明確的 AJAX 載入時間
+        click_element(self.driver, *SEL_BTN_QUERY)
+        time.sleep(5)  # 增加到 5 秒，確保資料完全進到表格
+
+        # 2. 獲取 XPath 選擇器
+        selector = sel_btn_img_maintenance_draft_only(ean)
+        
+        try:
+            # 使用 presence 獲取元素即可，不要求 visibility
+            element = wait_until(self.driver, *selector, EC.presence_of_element_located, seconds=15)
+            
+            # 3. 關鍵改動：使用 JavaScript 執行三部曲
+            # A. 捲動到畫面中央
+            self.driver.execute_script("arguments[0].scrollIntoView({block: 'center'});", element)
+            time.sleep(1)
+            
+            # B. 高亮該元素（Debug 用，你會看到瀏覽器框出紅線，確認抓對人）
+            self.driver.execute_script("arguments[0].style.border='3px solid red'", element)
+            
+            # C. 強制點擊
+            self.driver.execute_script("arguments[0].click();", element)
+            
+            print(f"✅ 條碼 {ean} 已透過 JS 強制觸發點擊")
+            return True
+            
+        except Exception as e:
+            # 萬一失敗，印出當下的 URL 與 錯誤訊息
+            print(f"❌ 條碼 {ean} 定位失敗。")
+            print(f"   當下網址: {self.driver.current_url}")
+            print(f"   詳細錯誤: {str(e)[:100]}")
+            return False
+        
+    #圖片＆商品綁定
+    def bind_image_in_modal(self, ean: str):
+        try:
+            # 1. 搜尋
+            input_value(self.driver, *SEL_MODAL_SEARCH_INPUT, ean, clear_first=True)
+            click_element(self.driver, *SEL_BTN_QUERY)
+            time.sleep(3) 
+
+            # 2. 使用模板產生當前 EAN 的選擇器 (這比直接用 SIMPLE 更安全)
+            target_selector = (SEL_MODAL_BIND_BTN_TEMPLATE[0], SEL_MODAL_BIND_BTN_TEMPLATE[1].format(ean))
+            
+            # 3. 獲取頁面上所有符合該條碼的按鈕
+            bind_btns = self.driver.find_elements(*target_selector)
+            
+            if not bind_btns:
+                print(f"⚠️ 找不到任何與 {ean} 相關的綁定按鈕。")
+                return False
+
+            print(f"🔎 找到 {len(bind_btns)} 個按鈕，準備處理...")
+            
+            for btn in bind_btns:
+                self.driver.execute_script("arguments[0].click();", btn)
+                time.sleep(1)
+            
+            return True
+        except Exception as e:
+            print(f"❌ 批量綁定過程中斷: {e}")
+            return False
+        
+    def get_all_draft_eans_from_page(self):
+
+        self.goto_product_application()
+
+        # 1. 點擊查詢並給予明確的 AJAX 載入時間
+        click_element(self.driver, *SEL_BTN_QUERY)
+        time.sleep(5)  # 增加到 5 秒，確保資料完全進到表格 
+        """
+        掃描當前頁面，抓取所有標記為『暫存』的條碼
+        """
+        print("🔍 正在掃描頁面中的暫存商品...")
+        # 抓取所有包含「暫存」字樣的資料列
+        draft_rows = self.driver.find_elements(By.XPATH, "//tr[contains(., '暫存')]")
+        
+        found_eans = []
+        for row in draft_rows:
+            # 使用正規表達式抓取 row 文字中 13 位的條碼
+            match = re.search(r'\d{13}', row.text)
+            if match:
+                found_eans.append(match.group())
+        
+        # 去重處理
+        found_eans = list(dict.fromkeys(found_eans))
+        print(f"📊 掃描完成！找到 {len(found_eans)} 筆待處理條碼: {found_eans}")
+        return found_eans
