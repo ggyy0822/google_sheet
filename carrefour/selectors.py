@@ -14,8 +14,8 @@ SEL_MENU_PRODUCT = (By.XPATH, "//span[contains(@class,'ant-menu-title-content') 
 SEL_LINK_PRODUCT_APPLICATION = (By.CSS_SELECTOR, 'a[href="/product/application"]')
 
 # --- Upload excel ---
-SEL_BTN_IMPORT = (By.XPATH, "//button[.//span[normalize-space()='提品匯入']]")
 SEL_INPUT_FILE = (By.CSS_SELECTOR, "input[type='file']")
+SEL_MODAL_CLOSE = (By.CSS_SELECTOR, "button.ant-modal-close")
 
 # ============================
 # 批次提品圖片上傳 /product/batch-img-upload
@@ -48,9 +48,6 @@ def sel_image_type_option(text: str):
 
 # 檔案 input：你截圖顯示 id="file" multiple display:none，最穩
 SEL_INPUT_FILE_ID = (By.CSS_SELECTOR, "input#file[type='file']")
-
-# 彈窗/區塊內的「上傳」按鈕（secondary）
-SEL_BTN_UPLOAD = (By.XPATH, "//button[normalize-space()='上傳' or .//span[normalize-space()='上傳']]")
 
 # 「確認」按鈕（type=submit）
 SEL_BTN_CONFIRM = (By.XPATH, "//button[@type='submit' and (normalize-space()='確認' or .//span[normalize-space()='確認'])]")

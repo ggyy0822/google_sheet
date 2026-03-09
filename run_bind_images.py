@@ -2,14 +2,22 @@
 import time
 from carrefour import CarrefourBot
 
+def bind_image(bot: CarrefourBot, ean: str) -> bool:
+    """供外部呼叫：針對單一條碼進行綁定"""
+    try:
+        if bot.goto_image_maintenance_if_draft(ean):
+            success = bot.bind_image_in_modal(ean)
+            return success
+        return False
+    except Exception as e:
+        print(f"❌ 處理 {ean} 時發生錯誤: {e}")
+        return False
+
 def main():
     print("🚀 啟動全自動『暫存商品』圖片綁定任務...")
 
     with CarrefourBot() as bot:
         bot.login()
-        
-        # 這裡假設登入後需要點擊選單進入「提品申請」頁面
-        # bot.goto_product_application() 
         
         # 1. 現場偵測：直接從網頁抓取目標
         target_eans = bot.get_all_draft_eans_from_page()
