@@ -1,0 +1,13 @@
+{
+  "token": "YOUR_OAUTH_TOKEN",
+  "refresh_token": "YOUR_REFRESH_TOKEN",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "client_id": "YOUR_CLIENT_ID",
+  "client_secret": "YOUR_CLIENT_SECRET",
+  "scopes": [
+    "https://www.googleapis.com/auth/spreadsheets"
+  ],
+  "universe_domain": "googleapis.com",
+  "account": "",
+  "expiry": "2026-03-12T10:09:06.747038Z"
+}

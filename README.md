@@ -41,6 +41,10 @@
 
 ## 🚀 快速開始
 1.  確保 `config/` 資料夾內已有正確的設定檔。
+    - **家樂福設定**: 將 `config/carrefour_config.example.json` 複製並重新命名為 `config/carrefour_config.json`，並填入相關資訊。
+    - **Google API 設定**: 
+        - 將 `config/client_secret.example.json` 複製為 `config/client_secret.json` 並填入您的 GCP 憑證。
+        - 系統首次執行時會自動產生 `google_sheet_token.json`，或您可參考 `config/google_sheet_token.example.json` 手動建立。
 2.  將待上傳圖片放入 `picture/商品圖` 或 `picture/商品特色圖`。
 3.  於終端機執行：
     ```bash
