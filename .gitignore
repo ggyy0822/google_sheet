@@ -9,7 +9,10 @@ __pycache__/
 .DS_Store
 
 # Google API secrets
-google_sheet_token.json
-token.json
-credentials.json
-config/client_secret.json
+# google_sheet_token.json
+# token.json
+# credentials.json
+# config/client_secret.json
+
+# Carrefour config
+config/carrefour_config.json
